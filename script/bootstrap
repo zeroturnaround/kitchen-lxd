@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+# script/bootstrap: Resolve all dependencies that application requires to run.
+
+require 'rubygems/dependency_installer'
+
+puts '=> Install gem dependencies'
+installer = Gem::Installer.new( '' )
+unsatisfied_dependencies = Gem::Specification.load( 'kitchen-lxd.gemspec' ).
+	development_dependencies.select do |dp|
+		!installer.installation_satisfies_dependency? dp
+	end
+
+installer = Gem::DependencyInstaller.new( user_install: true )
+unsatisfied_dependencies.each{|dp| installer.install dp }
+puts '=> Done'
