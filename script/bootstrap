@@ -7,7 +7,7 @@ require 'rubygems/dependency_installer'
 puts '=> Install gem dependencies'
 installer = Gem::Installer.new( '' )
 unsatisfied_dependencies = Gem::Specification.load( 'kitchen-lxd.gemspec' ).
-	development_dependencies.select do |dp|
+	dependencies.select do |dp|
 		!installer.installation_satisfies_dependency? dp
 	end
 

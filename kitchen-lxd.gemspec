@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require_relative 'lib/kitchen/driver/lxd/version'
+require_relative 'lib/kitchen/driver/version'
 
 Gem::Specification.new do |s|
 	s.name = 'kitchen-lxd'
-	s.version = Kitchen::Driver::Lxd::VERSION
+	s.version = Kitchen::Driver::LXD_VERSION
 	s.authors = ['Juri Timošin']
 	s.email = ['draco.ater@gmail.com', 'juri.timoshin@zeroturnaround.com']
 	s.summary = 'An Lxd driver for Test Kitchen.'
