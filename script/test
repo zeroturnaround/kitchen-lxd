@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# script/test: Run test suites for application.
+
+# Bootstrap the application to ensure all gem dependencies are met.
+script/bootstrap
+
+echo "=> Run unit tests"
+rake test:unit
+echo "=> Done"

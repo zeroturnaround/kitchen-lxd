@@ -1,5 +1,7 @@
 # <a name="title"></a> Kitchen::Lxd
 
+[![Build Status](https://travis-ci.org/zeroturnaround/kitchen-lxd.svg?branch=master)](https://travis-ci.org/zeroturnaround/kitchen-lxd)
+
 A Test Kitchen Driver for Lxd.
 
 ## <a name="requirements"></a> Requirements
