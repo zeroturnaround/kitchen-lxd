@@ -10,6 +10,10 @@ A Test Kitchen Driver for Lxd.
 
 Lxd version of 2.3 (the one where "lxc network" commands were introduced) or higher is required for
 this driver which means that a native package must be installed on the system running Test Kitchen.
+You must also prepare a container to be used by Test Kitchen. For that make sure there is ssh daemon
+installed and starting on boot. ( On Ubuntu it can be done by simply installing 'openssh-server'
+package. ) You can also install Chef Client there, if you do not want Test Kitchen to install it
+every time the container is started.
 
 ## <a name="installation"></a> Installation and Setup
 
