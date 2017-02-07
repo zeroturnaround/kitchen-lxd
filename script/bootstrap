@@ -11,6 +11,13 @@ unsatisfied_dependencies = Gem::Specification.load( 'kitchen-lxd.gemspec' ).
 		!installer.installation_satisfies_dependency? dp
 	end
 
-installer = Gem::DependencyInstaller.new( user_install: true )
-unsatisfied_dependencies.each{|dp| installer.install dp }
+begin
+	# Try "global" installation first. For someone using RVM.
+	installer = Gem::DependencyInstaller.new( user_install: false )
+	unsatisfied_dependencies.each{|dp| installer.install dp }
+rescue
+	# If "global" failed, then we obviously do not use anything special. So installing to user home.
+	user_installer = Gem::DependencyInstaller.new( user_install: true )
+	unsatisfied_dependencies.each{|dp| user_installer.install dp }
+end
 puts '=> Done'

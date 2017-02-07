@@ -1,4 +1,5 @@
 pkg
 doc
 test/coverage
+test/reports
 .rake_tasks~

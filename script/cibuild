@@ -3,5 +3,12 @@
 # script/cibuild: Setup environment for CI to run tests. This is primarily
 #                 designed to run on the continuous integration server.
 
+# Set environment to 'test' so other scripts knew, that we are on ci server.
+export RUBY_ENV='test'
+
 # Run tests
 script/test
+
+echo "=> Build gem"
+rake gem
+echo "=> Done"
