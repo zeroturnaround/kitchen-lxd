@@ -21,7 +21,7 @@ namespace :test do
 	Rake::TestTask.new :unit do |t|
 		t.verbose = true
 		t.warning = true
-		t.deps = ["ci:setup:minitest"] if ENV['CI_REPORTS']
-		t.test_files = FileList["test/unit/*_test.rb"]
+		t.deps = ['ci:setup:minitest'] if ENV['CI_REPORTS']
+		t.test_files = FileList['test/unit/*_test.rb']
 	end
 end
