@@ -19,6 +19,6 @@
 module Kitchen
 	module Driver
 		# Version string for Lxd Kitchen driver
-		LXD_VERSION = '0.1.0'
+		LXD_VERSION = '0.1.1'
 	end
 end

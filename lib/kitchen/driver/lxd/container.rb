@@ -1,3 +1,21 @@
+# -*- encoding: utf-8 -*-
+#
+# Author:: Juri Timošin (<draco.ater@gmail.com>)
+#
+# Copyright (C) 2017, Juri Timošin
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require 'kitchen'
 require 'json'
 
@@ -56,10 +74,11 @@ module Kitchen
 					info 'Wait for network to become ready.'
 					9.times do
 						update_state
-						inet = @state[:state][:network][:eth0][:addresses].detect do |i|
-							i[:family] == 'inet'
+						s = @state['state'].nil? ? @state['State'] : @state['state']
+						inet = s['network']['eth0']['addresses'].detect do |i|
+							i['family'] == 'inet'
 						end
-						return inet[:address] if inet
+						return inet['address'] if inet
 						sleep 1 unless defined?( Minitest )
 					end
 					nil
@@ -68,12 +87,11 @@ module Kitchen
 				private
 
 				def update_state
-					@state = JSON.parse( run_command( "lxc list #@name --format json" ),
-						symbolize_names: true ).first
+					@state = JSON.parse( run_command "lxc list #@name --format json" ).first
 				end
 
 				def running?
-					@state[:status] == 'Running'
+					@state['status'] == 'Running'
 				end
 
 				def created?
@@ -81,7 +99,7 @@ module Kitchen
 				end
 
 				def device_attached?( network )
-					@state[:devices] and @state[:devices][network.to_sym]
+					@state['devices'] and @state['devices'][network.to_s]
 				end
 			end
 		end

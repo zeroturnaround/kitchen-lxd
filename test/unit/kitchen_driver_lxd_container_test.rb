@@ -1,3 +1,21 @@
+# -*- encoding: utf-8 -*-
+#
+# Author:: Juri Timošin (<draco.ater@gmail.com>)
+#
+# Copyright (C) 2017, Juri Timošin
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require_relative 'test_helper'
 require 'logger'
 
@@ -66,7 +84,7 @@ module Kitchen
 						returns( INITIALISED_CONTAINER )
 					@subj.expects( :run_command ).with( 'lxc init image1 c1' ).once
 					@subj.init
-					assert_equal JSON.parse( INITIALISED_CONTAINER, symbolize_names: true ).first, @subj.state
+					assert_equal JSON.parse( INITIALISED_CONTAINER ).first, @subj.state
 				end
 
 				def test_init_already_created
@@ -76,7 +94,7 @@ module Kitchen
 					
 					@subj.send :update_state
 					@subj.init
-					assert_equal JSON.parse( INITIALISED_CONTAINER, symbolize_names: true ).first, @subj.state
+					assert_equal JSON.parse( INITIALISED_CONTAINER ).first, @subj.state
 				end
 
 				def test_attach_network_success
@@ -85,7 +103,7 @@ module Kitchen
 					@subj.expects( :run_command ).with( 'lxc network attach lxdbr0 c1' ).once
 					@subj.send :update_state
 					@subj.attach_network 'lxdbr0'
-					assert_equal JSON.parse( INITIALISED_CONTAINER_WITH_NETWORK, symbolize_names: true ).first,
+					assert_equal JSON.parse( INITIALISED_CONTAINER_WITH_NETWORK ).first,
 						@subj.state
 				end
 
@@ -103,7 +121,7 @@ module Kitchen
 					@subj.expects( :run_command ).with( 'lxc start c1' ).once
 					@subj.send :update_state
 					@subj.start
-					assert_equal JSON.parse( RUNNING_CONTAINER_WITH_NETWORK, symbolize_names: true ).first, @subj.state
+					assert_equal JSON.parse( RUNNING_CONTAINER_WITH_NETWORK ).first, @subj.state
 				end
 
 				def test_start_already_running
@@ -179,6 +197,7 @@ module Kitchen
 					assert @subj.send( :device_attached?, 'lxdbr0' )
 					@subj.send :update_state
 					assert @subj.send( :device_attached?, 'lxdbr0' )
+					assert @subj.send( :device_attached?, :lxdbr0 )
 					refute @subj.send( :device_attached?, 'lxdbr1' )
 				end
 			end
